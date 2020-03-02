@@ -14,7 +14,7 @@ class CreateListingProperties extends Migration
     public function up()
     {
         Schema::create('listing_properties', function (Blueprint $table) {
-            $table->bincrements('id');
+            $table->increments('id');
             $table->bigInteger('listing_id')->unsigned()->default(0)->comment('产品ID');
             $table->json('materials')->comment('属性');
             $table->text('description')->comment('描述');
