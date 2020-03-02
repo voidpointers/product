@@ -3,6 +3,7 @@
 namespace Etsy\Requests;
 
 use GuzzleHttp\Client;
+use Product\Entities\Listing;
 
 class ListingRequest
 {
@@ -14,13 +15,20 @@ class ListingRequest
         $client = new Client();
 
         $page = 1;
-        // while ($page) {
+        while ($page) {
             $response = $client->request('GET', $url, [
                 'auth' => ['user', 'pass'],
                 'query' => ['limit' => 25, 'page' => $page]
             ]);
-            $body = $response->getBody();
-        // }
-        return $body;
+            $body = $response->getBody()->getContents();
+
+            // 存储数据到MySQL
+            $data = $body->results;
+            Listing::insert($data);
+
+            // 最后一页为null，退出循环
+            $page = $body->pagination->next_page;
+        }
+        return json_decode($body, true);
     }
 }
