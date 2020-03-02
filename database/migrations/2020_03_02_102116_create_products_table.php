@@ -32,7 +32,7 @@ class CreateProductsTable extends Migration
             $table->integer('ending_tsz')->unsigned()->default(0)->comment('Etsy截止时间');
             $table->integer('last_modified_tsz')->unsigned()->default(0)->comment('最近更新时间');
             $table->integer('create_time')->unsigned()->default(0)->comment('创建时间');
-            $table->integer('create_time')->unsigned()->default(0)->comment('创建时间');
+            $table->integer('update_time')->unsigned()->default(0)->comment('更新时间');
         });
     }
 
