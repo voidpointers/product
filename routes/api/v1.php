@@ -8,7 +8,7 @@ $api->version('v1', [
     $api->group([
         'namespace' => 'Api\Product\V1\Controllers',
     ], function ($api) {
-        $api->resource('listings', 'ListingsController');
         $api->get('listings/{shop_id}', 'ListingsController@index');
+        // $api->resource('listings', 'ListingsController');
     });
 });
