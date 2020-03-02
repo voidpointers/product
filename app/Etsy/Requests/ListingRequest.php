@@ -20,10 +20,10 @@ class ListingRequest
                 'auth' => ['user', 'pass'],
                 'query' => ['limit' => 25, 'page' => $page]
             ]);
-            $body = $response->getBody()->getContents();
+            $body = json_decode($response->getBody()->getContents(), true);
 
             // 存储数据到MySQL
-            $data = $body->results;
+            $data = $body['results'];
             Listing::insert($data);
 
             // 最后一页为null，退出循环
