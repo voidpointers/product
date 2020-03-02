@@ -65,6 +65,13 @@ $app->singleton(
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
+$app->configure('database');
+$app->configure('auth');
+$app->configure('cache');
+$app->configure('api');
+$app->configure('cors');
+$app->configure('services');
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
