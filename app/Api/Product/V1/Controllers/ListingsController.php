@@ -15,8 +15,7 @@ class ListingsController extends Controller
 
         return $this->response->collection(
             $data,
-            ListingTransfomer::class,
-            'include'
+            ListingTransfomer::class
         );
     }
 }
