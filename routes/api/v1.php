@@ -7,8 +7,7 @@ $api->version('v1', [
 ], function ($api) {
     $api->group([
         'namespace' => 'Api\Product\V1\Controllers',
-        'prefix' => 'products',
     ], function ($api) {
-        $api->resource('products', 'ProductsController');
+        $api->resource('listings', 'ListingsController');
     });
 });
