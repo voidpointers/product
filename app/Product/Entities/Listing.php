@@ -16,8 +16,6 @@ class Listing extends Model
         'title',
         'price',
         'quantity',
-        'listing_image_id',
-        'image',
         'sku',
         'tags',
         'url',
@@ -34,8 +32,12 @@ class Listing extends Model
     public function store($params)
     {
         $data = [];
-        foreach ($this->fillable as $fillable) {
-            $data[$fillable] = $params[$fillable] ?? '';
+        foreach ($params as $key => $param) {
+            foreach ($this->fillable as $fillable) {
+                $data[$key][$fillable] = $param[$fillable] ?? '';
+            }
+            $data[$key]['image_id'] = $param['MainImage']['listing_image_id'];
+            $data[$key]['image'] = $param['MainImage']['url_fullxfull'];
         }
 
         dd($data);
