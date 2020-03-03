@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateListingProperties extends Migration
 {
@@ -23,7 +24,10 @@ class CreateListingProperties extends Migration
             $table->tinyInteger('item_height')->unsigned()->default(0)->comment('高');
             $table->json('materials')->comment('材料清单');
             $table->text('description')->comment('描述');
+            $table->unique('listing_id', 'uk_listing_id');
         });
+
+        DB::statement("ALTER TABLE `listing_properties` comment '扩展表'"); // 表注释
     }
 
     /**
