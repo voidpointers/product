@@ -7,7 +7,7 @@ use Product\Entities\Listing;
 
 class ListingTransfomer extends TransformerAbstract
 {
-    public function tranform(Listing $listing)
+    public function transform(Listing $listing)
     {
         return $listing->attributesToArray();
     }

@@ -31,6 +31,5 @@ class ListingsController extends Controller
     {
         $request->offsetSet('shop_id', $shop_id);
         $data = $this->listingRequest->pull($request->all());
-        dd($data);
     }
 }
