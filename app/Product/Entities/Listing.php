@@ -71,30 +71,34 @@ class Listing extends Model
             $param['sku'] = json_encode($param['sku']);
 
             if (in_array($param['listing_id'], $listing_ids)) {
-                $update[] = [];
+                $update[] = $this->fill($param);
             } else {
-                $create[] = [];
+                $create[] = $this->fill($param);
             }
-            $data[$param['listing_id']] = [
-                'image_id' => $param['MainImage']['listing_image_id'],
-                'image' => $param['MainImage']['url_fullxfull'],
-                'create_time' => time(),
-                'update_time' => time(),
-            ];
-            foreach ($this->fillable as $fillable) {
-                $data[$param['listing_id']][$fillable] = $param[$fillable] ?? '';
-            }
-
         }
 
         // 如果存在则更新
         if ($update) {
-            $this->updateBatch($array, 'listing_id', 'listing_id');
+            $this->updateBatch($update, 'listing_id', 'listing_id');
         }
         if ($create) {
-            $res = self::insert($data);
+            $res = self::insert($create);
         }
         return $res;
+    }
+
+    protected function fill($params)
+    {
+        $data[$params['listing_id']] = [
+            'image_id' => $params['MainImage']['listing_image_id'],
+            'image' => $params['MainImage']['url_fullxfull'],
+            'create_time' => time(),
+            'update_time' => time(),
+        ];
+        foreach ($this->fillable as $fillable) {
+            $data[$params['listing_id']][$fillable] = $params[$fillable] ?? '';
+        }
+        return $data;
     }
 
     public function getStateStrAttribute()
