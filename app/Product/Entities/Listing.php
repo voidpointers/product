@@ -38,16 +38,17 @@ class Listing extends Model
             $param['shop_id'] = $shop_id;
             $param['sku'] = json_encode($param['sku']);
 
-            foreach ($this->fillable as $fillable) {
-                $data[$key][$fillable] = $param[$fillable] ?? '';
-            }
-
             $data[$key] = [
                 'image_id' => $param['MainImage']['listing_image_id'],
                 'image' => $param['MainImage']['url_fullxfull'],
                 'create_time' => time(),
                 'update_time' => time(),
             ];
+
+            foreach ($this->fillable as $fillable) {
+                $data[$key][$fillable] = $param[$fillable] ?? '';
+            }
+
         }
 
         return self::insert($data);
