@@ -7,9 +7,8 @@ use Product\Entities\Listing;
 
 class ListingRequest
 {
-    public function pull(array $params)
+    public function pull($shop_id)
     {
-        $shop_id = $params['shop_id'] ?? 0;
         $url = env('ETSY_URL') . "/listings/{$shop_id}";
 
         $client = new Client();

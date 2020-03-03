@@ -33,7 +33,9 @@ class ListingsController extends Controller
 
     public function pull(Request $request)
     {
-        $data = $this->listingRequest->pull($request->all());
+        $shop_id = $request->header('shop-id');
+
+        $data = $this->listingRequest->pull($shop_id);
     }
 
     public function detail(Request $request)
