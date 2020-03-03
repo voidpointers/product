@@ -17,6 +17,8 @@ class CreateListingProperties extends Migration
         Schema::create('listing_properties', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('listing_id')->unsigned()->default(0)->comment('产品ID');
+            $table->json('category_path_ids')->comment('分类路径id');
+            $table->json('category_path')->comment('分类路径');
             $table->string('item_weight_unit', 32)->comment('');
             $table->tinyInteger('item_weight')->unsigned()->default(0)->comment('重量');
             $table->tinyInteger('item_length')->unsigned()->default(0)->comment('长');

@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('title')->default('')->comment('标题');
             $table->decimal('price')->unsigned()->default(0)->comment('单价');
             $table->mediumInteger('quantity')->unsigned()->default(0)->comment('数量');
+            $table->bigInteger('listing_image_id')->unsigned()->default(0)->comment('主图ID');
             $table->string('image')->default('')->comment('商品主图');
             $table->string('sku')->default('')->comment('SKU');
             $table->json('tags')->comment('标签，json数组');
