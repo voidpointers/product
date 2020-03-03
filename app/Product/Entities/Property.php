@@ -11,10 +11,10 @@ class Property extends Model
     /**
      * 创建时间
      */
-    const CREATED_AT = 'create_time';
+    const CREATED_AT = null;
 
     /**
      * 更新时间
      */
-    const UPDATED_AT = 'update_time';
+    const UPDATED_AT = null;
 }
