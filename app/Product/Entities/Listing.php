@@ -39,24 +39,24 @@ class Listing extends Model
     {
         $data = [];
 
-        foreach ($params as $param) {
+        foreach ($params as $key => $param) {
             $param['tags'] = json_encode($param['tags']);
             $param['shop_id'] = $shop_id;
             $param['sku'] = json_encode($param['sku']);
 
-            $data[$param['listing_id']] = [
+            $data[$key] = [
                 'image_id' => $param['MainImage']['listing_image_id'],
                 'image' => $param['MainImage']['url_fullxfull'],
                 'create_time' => time(),
                 'update_time' => time(),
             ];
             foreach ($this->fillable as $fillable) {
-                $data[$param['listing_id']][$fillable] = $param[$fillable] ?? '';
+                $data[$key][$fillable] = $param[$fillable] ?? '';
             }
-
+            Listing::updateOrCreate($data);
         }
 
-        return $res;
+        return true;
     }
 
     public function storeBatch($shop_id, $params)
