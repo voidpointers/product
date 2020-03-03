@@ -2,7 +2,7 @@
 
 namespace Api\Product\V1\Controllers;
 
-use Api\Product\V1\Transforms\ListingTransfomer;
+use Api\Product\V1\Transforms\ListingTransformer;
 use App\Controller;
 use Dingo\Api\Http\Request;
 use Etsy\Requests\ListingRequest;
@@ -27,7 +27,7 @@ class ListingsController extends Controller
 
         return $this->response->paginator(
             $data,
-            ListingTransfomer::class
+            ListingTransformer::class
         );
     }
 
@@ -47,7 +47,7 @@ class ListingsController extends Controller
 
         return $this->response->collection(
             $data,
-            ListingTransfomer::class
+            ListingTransformer::class
         );
     }
 }
