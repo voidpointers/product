@@ -30,7 +30,7 @@ class CreateListingsTable extends Migration
             $table->string('url')->default('')->comment('URL');
             $table->mediumInteger('views')->unsigned()->default(0)->comment('浏览量');
             $table->mediumInteger('num_favorers')->unsigned()->default(0)->comment('喜欢数量');
-            $table->tinyInteger('state')->unsigned()->default(0)->comment('状态');
+            $table->string('state')->default('')->comment('状态');
             $table->tinyInteger('is_customizable')->unsigned()->default(0)->comment('是否定制');
             $table->tinyInteger('should_auto_renew')->unsigned()->default(0)->comment('是否自动续订');
             $table->integer('creation_tsz')->unsigned()->default(0)->comment('Etsy创建时间');
