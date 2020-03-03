@@ -87,7 +87,7 @@ class Listing extends Model
         return $res;
     }
 
-    protected function fill($params)
+    protected function fillv2($params)
     {
         $data[$params['listing_id']] = [
             'image_id' => $params['MainImage']['listing_image_id'],
