@@ -26,7 +26,7 @@ class CreateCategoriesTable extends Migration
             $table->string('short_name')->default('')->comment('短名');
             $table->string('long_name')->default('')->comment('长名');
             $table->integer('num_children')->unsigned()->default(0)->comment('子分类数量');
-            $table->unique('category_id', 'idx_category_id');
+            $table->unique('category_id', 'uk_category_id');
         });
 
         DB::statement("ALTER TABLE `categories` comment '分类表'"); // 表注释
