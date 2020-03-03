@@ -25,7 +25,7 @@ class CreateListingsTable extends Migration
             $table->mediumInteger('quantity')->unsigned()->default(0)->comment('数量');
             $table->bigInteger('image_id')->unsigned()->default(0)->comment('主图ID');
             $table->string('image')->default('')->comment('商品主图');
-            $table->string('sku')->default('')->comment('SKU');
+            $table->json('sku')->comment('SKU');
             $table->json('tags')->comment('标签，json数组');
             $table->string('url')->default('')->comment('URL');
             $table->mediumInteger('views')->unsigned()->default(0)->comment('浏览量');
