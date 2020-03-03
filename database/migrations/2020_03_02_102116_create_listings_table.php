@@ -42,7 +42,6 @@ class CreateListingsTable extends Migration
             $table->index('shop_id', 'idx_shop_id');
             $table->index('user_id', 'idx_user_id');
             $table->index('category_id', 'idx_category_id');
-            $table->index('sku', 'idx_sku');
         });
 
         DB::statement("ALTER TABLE `listings` comment '商品主表'"); // 表注释
