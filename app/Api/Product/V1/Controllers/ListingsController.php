@@ -37,8 +37,10 @@ class ListingsController extends Controller
 
     public function detail($shop_id, Request $request)
     {
+        $listing_ids = $request->input('listing_ids');
+
         $data = Listing::where(['shop_id' => $shop_id])
-        ->whereIn('listing_id', $request->input('listing_ids'))
+        ->whereIn('listing_id', explode(',', $listing_ids))
         ->get();
 
         return $this->response->collection(
