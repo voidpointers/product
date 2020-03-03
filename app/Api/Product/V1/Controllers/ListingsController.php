@@ -35,9 +35,15 @@ class ListingsController extends Controller
         $data = $this->listingRequest->pull($request->all());
     }
 
-    public function product($shop_id, $listing_id)
+    public function product($shop_id, Request $request)
     {
-        $data = Listing::where(['shop_id' => $shop_id, 'listing_id' => $listing_id])->select()->get();
-        return json_encode($data);
+        $data = Listing::where(['shop_id' => $shop_id])
+        ->whereIn('listing_id', $request->input('listing_ids'))
+        ->get();
+
+        return $this->response->collection(
+            $data,
+            ListingTransfomer::class
+        );
     }
 }
