@@ -19,9 +19,11 @@ class ListingsController extends Controller
     
     public function index($shop_id, Request $request)
     {
-        $data = Listing::where(['shop_id' => $shop_id])->get();
+        $data = Listing::where(['shop_id' => $shop_id])
+        ->orderBy('id', 'desc')
+        ->paginate($request->get('limit', 30));
 
-        return $this->response->collection(
+        return $this->response->paginator(
             $data,
             ListingTransfomer::class
         );
