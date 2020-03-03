@@ -31,10 +31,10 @@ class Listing extends Model
         'last_modified_tsz'
     ];
 
-    public function store($params)
+    public static function store($params)
     {
         $data = [];
-        foreach ($this->fillable as $fillable) {
+        foreach (self::$fillable as $fillable) {
             $data[$fillable] = $params[$fillable] ?? '';
         }
 
