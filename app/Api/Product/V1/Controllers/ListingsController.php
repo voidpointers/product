@@ -17,8 +17,10 @@ class ListingsController extends Controller
         $this->listingRequest = $listingRequest;
     }
     
-    public function index($shop_id, Request $request)
+    public function index(Request $request)
     {
+        $shop_id = $request->input('shop_id');
+
         $data = Listing::where(['shop_id' => $shop_id])
         ->orderBy('id', 'desc')
         ->paginate($request->get('limit', 30));
@@ -29,15 +31,15 @@ class ListingsController extends Controller
         );
     }
 
-    public function pull($shop_id, Request $request)
+    public function pull(Request $request)
     {
-        $request->offsetSet('shop_id', $shop_id);
         $data = $this->listingRequest->pull($request->all());
     }
 
-    public function detail($shop_id, Request $request)
+    public function detail(Request $request)
     {
         $listing_ids = $request->input('listing_ids');
+        $shop_id = $request->input('shop_id');
 
         $data = Listing::where(['shop_id' => $shop_id])
         ->whereIn('listing_id', explode(',', $listing_ids))

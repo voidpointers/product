@@ -8,9 +8,9 @@ $api->version('v1', [
     $api->group([
         'namespace' => 'Api\Product\V1\Controllers',
     ], function ($api) {
-        $api->get('listings/{shop_id}', 'ListingsController@index');
-        $api->get('listings/{shop_id}/pull', 'ListingsController@pull');
-        $api->get('listings/{shop_id}/detail', 'ListingsController@detail');
+        $api->get('listings', 'ListingsController@index');
+        $api->get('listings/pull', 'ListingsController@pull');
+        $api->get('listings/detail', 'ListingsController@detail');
         // $api->resource('listings', 'ListingsController');
     });
 });
