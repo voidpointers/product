@@ -11,7 +11,7 @@ class Listing extends Model
     protected $appends = ['state_str'];
 
     protected const STATE_STR = [
-        'alive' => '在线'
+        'active' => '在线'
     ];
 
     protected $fillable = [
