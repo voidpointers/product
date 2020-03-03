@@ -71,9 +71,9 @@ class Listing extends Model
             $param['sku'] = json_encode($param['sku']);
 
             if (in_array($param['listing_id'], $listing_ids)) {
-                $update[] = $this->fill($param);
+                $update[] = $this->filled($param);
             } else {
-                $create[] = $this->fill($param);
+                $create[] = $this->filled($param);
             }
         }
 
@@ -87,7 +87,7 @@ class Listing extends Model
         return $res;
     }
 
-    protected function fillv2($params)
+    protected function filled($params)
     {
         $data[$params['listing_id']] = [
             'image_id' => $params['MainImage']['listing_image_id'],
