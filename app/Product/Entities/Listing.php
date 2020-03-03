@@ -8,6 +8,10 @@ class Listing extends Model
 {
     protected $table = 'listings';
 
+    protected const STATE_STR = [
+        'alive' => '在线'
+    ];
+
     protected $fillable = [
         'listing_id',
         'shop_id',
@@ -52,5 +56,10 @@ class Listing extends Model
         }
 
         return self::insert($data);
+    }
+
+    public function getStateStrAttribute()
+    {
+        return self::STATE_STR[$this->attributes['state']] ?? '';
     }
 }
