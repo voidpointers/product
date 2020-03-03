@@ -70,7 +70,7 @@ class Listing extends Model
             $param['shop_id'] = $shop_id;
             $param['sku'] = json_encode($param['sku']);
 
-            if (in_array($param['listing_id']), $listing_ids) {
+            if (in_array($param['listing_id'], $listing_ids)) {
                 $update[] = [];
             } else {
                 $create[] = [];
