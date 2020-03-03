@@ -26,9 +26,9 @@ class ListingRequest
             $data = $body['results'];
             (new Listing)->store($shop_id, $data);
 
+            echo "当前处理页数: " . $page . PHP_EOL;
             // 最后一页为null，退出循环
             $page = $body['pagination']['next_page'];
-            echo "当前处理页数" . $page . PHP_EOL;
         }
         return true;
     }
