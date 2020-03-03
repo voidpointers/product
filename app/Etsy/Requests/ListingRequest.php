@@ -28,6 +28,7 @@ class ListingRequest
 
             // 最后一页为null，退出循环
             $page = $body->pagination->next_page;
+            echo "当前处理页数" . $page . PHP_EOL;
         }
         return json_decode($body, true);
     }
