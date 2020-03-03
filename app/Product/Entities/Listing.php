@@ -39,25 +39,62 @@ class Listing extends Model
     {
         $data = [];
 
-        foreach ($params as $key => $param) {
+        foreach ($params as $param) {
             $param['tags'] = json_encode($param['tags']);
             $param['shop_id'] = $shop_id;
             $param['sku'] = json_encode($param['sku']);
 
-            $data[$key] = [
+            $data[$param['listing_id']] = [
                 'image_id' => $param['MainImage']['listing_image_id'],
                 'image' => $param['MainImage']['url_fullxfull'],
                 'create_time' => time(),
                 'update_time' => time(),
             ];
-
             foreach ($this->fillable as $fillable) {
-                $data[$key][$fillable] = $param[$fillable] ?? '';
+                $data[$param['listing_id']][$fillable] = $param[$fillable] ?? '';
             }
 
         }
 
-        return self::insert($data);
+        return $res;
+    }
+
+    public function storeBatch($shop_id, $params)
+    {
+        $update = $create = [];
+
+        $listing_ids = self::whereIn('listing_id', array_column($params, 'listing_id'))->get()->keyBy('listing_id');
+
+        foreach ($params as $param) {
+            $param['tags'] = json_encode($param['tags']);
+            $param['shop_id'] = $shop_id;
+            $param['sku'] = json_encode($param['sku']);
+
+            if (in_array($param['listing_id']), $listing_ids) {
+                $update[] = [];
+            } else {
+                $create[] = [];
+            }
+            $data[$param['listing_id']] = [
+                'image_id' => $param['MainImage']['listing_image_id'],
+                'image' => $param['MainImage']['url_fullxfull'],
+                'create_time' => time(),
+                'update_time' => time(),
+            ];
+            foreach ($this->fillable as $fillable) {
+                $data[$param['listing_id']][$fillable] = $param[$fillable] ?? '';
+            }
+
+        }
+
+        // 如果存在则更新
+        if ($update) {
+            $this->updateBatch($array, 'listing_id', 'listing_id');
+        }
+        if ($create) {
+            $res = self::insert($data);
+        }
+        return $res;
     }
 
     public function getStateStrAttribute()
