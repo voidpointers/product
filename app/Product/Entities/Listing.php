@@ -32,15 +32,22 @@ class Listing extends Model
     public function store($shop_id, $params)
     {
         $data = [];
+
         foreach ($params as $key => $param) {
-            $param['sku'] = json_encode($param['sku']);
             $param['tags'] = json_encode($param['tags']);
             $param['shop_id'] = $shop_id;
+            $param['sku'] = json_encode($param['sku']);
+
             foreach ($this->fillable as $fillable) {
                 $data[$key][$fillable] = $param[$fillable] ?? '';
             }
-            $data[$key]['image_id'] = $param['MainImage']['listing_image_id'];
-            $data[$key]['image'] = $param['MainImage']['url_fullxfull'];
+
+            $data[$key] = [
+                'image_id' => $param['MainImage']['listing_image_id'],
+                'image' => $param['MainImage']['url_fullxfull'],
+                'create_time' => time(),
+                'update_time' => time(),
+            ];
         }
 
         return self::insert($data);
