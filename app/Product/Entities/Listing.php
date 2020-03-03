@@ -10,7 +10,7 @@ class Listing extends Model
 
     protected $fillable = [
         'listing_id',
-        // 'shop_id',
+        'shop_id',
         'user_id',
         'category_id',
         'title',
