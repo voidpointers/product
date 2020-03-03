@@ -30,6 +30,6 @@ class ListingRequest
             $page = $body['pagination']['next_page'];
             echo "当前处理页数" . $page . PHP_EOL;
         }
-        return json_decode($body, true);
+        return true;
     }
 }
