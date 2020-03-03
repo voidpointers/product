@@ -24,7 +24,7 @@ class ListingRequest
 
             // 存储数据到MySQL
             $data = $body['results'];
-            (new Listing)->store($data);
+            (new Listing)->store($shop_id, $data);
 
             // 最后一页为null，退出循环
             $page = $body->pagination->next_page;

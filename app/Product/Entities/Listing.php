@@ -10,7 +10,7 @@ class Listing extends Model
 
     protected $fillable = [
         'listing_id',
-        'shop_id',
+        // 'shop_id',
         'user_id',
         'category_id',
         'title',
@@ -29,10 +29,13 @@ class Listing extends Model
         'last_modified_tsz'
     ];
 
-    public function store($params)
+    public function store($shop_id, $params)
     {
         $data = [];
         foreach ($params as $key => $param) {
+            $param['sku'] = json_encode($param['sku']);
+            $param['tags'] = json_encode($param['tags']);
+            $param['shop_id'] = $shop_id;
             foreach ($this->fillable as $fillable) {
                 $data[$key][$fillable] = $param[$fillable] ?? '';
             }
@@ -40,6 +43,6 @@ class Listing extends Model
             $data[$key]['image'] = $param['MainImage']['url_fullxfull'];
         }
 
-        dd($data);
+        return self::insert($data);
     }
 }
