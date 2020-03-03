@@ -34,4 +34,10 @@ class ListingsController extends Controller
         $request->offsetSet('shop_id', $shop_id);
         $data = $this->listingRequest->pull($request->all());
     }
+
+    public function product($shop_id, $listing_id)
+    {
+        $data = Listing::where(['shop_id' => $shop_id, 'listing_id' => $listing_id])->select()->get();
+        return json_encode($data);
+    }
 }

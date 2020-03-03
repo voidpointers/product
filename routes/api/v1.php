@@ -10,6 +10,7 @@ $api->version('v1', [
     ], function ($api) {
         $api->get('listings/{shop_id}', 'ListingsController@index');
         $api->get('listings/{shop_id}/pull', 'ListingsController@pull');
+        $api->get('listings/{shop_id}/{listing_id}', 'ListingsController@product');
         // $api->resource('listings', 'ListingsController');
     });
 });
