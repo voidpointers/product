@@ -19,7 +19,7 @@ class ListingsController extends Controller
     
     public function index(Request $request)
     {
-        $shop_id = $request->input('shop_id');
+        $shop_id = $request->header('shop_id');
 
         $data = Listing::where(['shop_id' => $shop_id])
         ->orderBy('id', 'desc')
@@ -38,8 +38,8 @@ class ListingsController extends Controller
 
     public function detail(Request $request)
     {
+        $shop_id = $request->header('shop_id');
         $listing_ids = $request->input('listing_ids');
-        $shop_id = $request->input('shop_id');
 
         $data = Listing::where(['shop_id' => $shop_id])
         ->whereIn('listing_id', explode(',', $listing_ids))
