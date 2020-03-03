@@ -8,6 +8,8 @@ class Listing extends Model
 {
     protected $table = 'listings';
 
+    protected $appends = ['state_str'];
+
     protected const STATE_STR = [
         'alive' => '在线'
     ];
