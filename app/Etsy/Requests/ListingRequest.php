@@ -24,7 +24,7 @@ class ListingRequest
 
             // 存储数据到MySQL
             $data = $body['results'];
-            Listing::insert($data);
+            Listing::store($data);
 
             // 最后一页为null，退出循环
             $page = $body->pagination->next_page;
