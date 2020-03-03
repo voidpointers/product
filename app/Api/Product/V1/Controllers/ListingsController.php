@@ -35,7 +35,7 @@ class ListingsController extends Controller
         $data = $this->listingRequest->pull($request->all());
     }
 
-    public function product($shop_id, Request $request)
+    public function detail($shop_id, Request $request)
     {
         $data = Listing::where(['shop_id' => $shop_id])
         ->whereIn('listing_id', $request->input('listing_ids'))
