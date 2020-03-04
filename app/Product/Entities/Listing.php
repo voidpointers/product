@@ -37,23 +37,21 @@ class Listing extends Model
 
     public function store($shop_id, $params)
     {
-        $data = [];
-
         foreach ($params as $key => $param) {
             $param['tags'] = json_encode($param['tags']);
             $param['shop_id'] = $shop_id;
             $param['sku'] = json_encode($param['sku']);
 
-            $data[$key] = [
-                'image_id' => $param['MainImage']['listing_image_id'],
-                'image' => $param['MainImage']['url_fullxfull'],
+            $data = [
+                'image_id' => $param['Images'][0]['listing_image_id'],
+                'image' => $param['Images'][0]['url_fullxfull'],
                 'create_time' => time(),
                 'update_time' => time(),
             ];
             foreach ($this->fillable as $fillable) {
-                $data[$key][$fillable] = $param[$fillable] ?? '';
+                $data[$fillable] = $param[$fillable] ?? '';
             }
-            Listing::updateOrCreate($data);
+            Listing::updateOrCreate(['listing_id' => $param['listing_id']], $data);
         }
 
         return true;

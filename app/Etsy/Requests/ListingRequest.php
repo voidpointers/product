@@ -5,6 +5,7 @@ namespace Etsy\Requests;
 use GuzzleHttp\Client;
 use Product\Entities\Category;
 use Product\Entities\Listing;
+use Product\Entities\ListingImage;
 
 class ListingRequest
 {
@@ -25,6 +26,7 @@ class ListingRequest
             // 存储数据到MySQL
             $data = $body['results'];
             (new Listing)->store($shop_id, $data);
+            (new ListingImage)->store($shop_id, $data);
 
             echo "当前处理页数: " . $page . PHP_EOL;
             // 最后一页为null，退出循环

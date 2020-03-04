@@ -19,6 +19,8 @@ class CreateListingImagesTable extends Migration
             $table->bigInteger('listing_id')->unsigned()->default(0)->comment('产品ID');
             $table->bigInteger('image_id')->unsigned()->default(0)->comment('图片ID');
             $table->string('image')->default('')->comment('产品图片');
+            $table->integer('update_time')->default(0)->comment('更新时间');
+            $table->integer('create_time')->default(0)->comment('创建时间');
             $table->unique('listing_id', 'uk_listing_id');
             $table->index('image_id', 'idx_image_id');
         });
