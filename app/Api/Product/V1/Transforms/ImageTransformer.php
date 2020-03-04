@@ -3,12 +3,14 @@
 namespace Api\Product\V1\Transforms;
 
 use League\Fractal\TransformerAbstract;
-use Product\Entities\Image;
 
 class ImageTransformer extends TransformerAbstract
 {
-    public function transform(Image $image)
+    public function transform($image)
     {
-        return $image->attributesToArray();
+        if ($image) {
+            return $image->attributesToArray();
+        }
+        return [];
     }
 }

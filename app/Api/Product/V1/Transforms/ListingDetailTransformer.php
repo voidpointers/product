@@ -17,7 +17,7 @@ class ListingDetailTransformer extends TransformerAbstract
     public function includeImages($listing)
     {
         return $this->collection(
-            $listing->images,
+            $listing->images ?? [],
             ImageTransformer::class,
             'include'
         );
