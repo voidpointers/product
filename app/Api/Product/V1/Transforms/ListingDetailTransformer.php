@@ -18,8 +18,8 @@ class ListingDetailTransformer extends TransformerAbstract
     {
         return $this->collection(
             $listing->images ?? [],
-            ImageTransformer::class
-            // 'include'
+            new ImageTransformer,
+            'include'
         );
     }
 }
