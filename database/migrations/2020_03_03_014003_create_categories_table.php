@@ -19,7 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('parent_id')->unsigned()->default(0)->comment('父类ID');
             $table->string('name')->default('')->comment('分类名');
             $table->string('meta_title')->default('')->comment('meta标题');
-            $table->string('meta_keywords')->default('')->comment('meta关键字');
+            $table->text('meta_keywords')->default('')->comment('meta关键字');
             $table->string('meta_description')->default('')->comment('meta描述');
             $table->string('page_description')->default('')->comment('页面描述');
             $table->string('page_title')->default('')->comment('页面标题');
