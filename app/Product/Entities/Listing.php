@@ -35,6 +35,11 @@ class Listing extends Model
         'last_modified_tsz'
     ];
 
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'listing_id', 'listing_id');
+    }
+
     public function store($shop_id, $params)
     {
         foreach ($params as $key => $param) {

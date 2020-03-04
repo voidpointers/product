@@ -3,6 +3,7 @@
 namespace Api\Product\V1\Controllers;
 
 use Api\Product\V1\Transforms\CategoryTransformer;
+use Api\Product\V1\Transforms\ListingDetailTransformer;
 use Api\Product\V1\Transforms\ListingTransformer;
 use App\Controller;
 use Dingo\Api\Http\Request;
@@ -47,11 +48,12 @@ class ListingsController extends Controller
 
         $data = Listing::where(['shop_id' => $shop_id])
         ->whereIn('listing_id', explode(',', $listing_ids))
+        ->with(['images'])
         ->get();
 
         return $this->response->collection(
             $data,
-            ListingTransformer::class
+            ListingDetailTransformer::class
         );
     }
 
