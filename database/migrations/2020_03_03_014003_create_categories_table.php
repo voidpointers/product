@@ -22,8 +22,8 @@ class CreateCategoriesTable extends Migration
             $table->text('meta_keywords')->comment('meta关键字');
             $table->text('meta_description')->comment('meta描述');
             $table->text('page_description')->comment('页面描述');
-            $table->text('page_title')->comment('页面标题');
-            $table->text('category_name')->comment('分类名');
+            $table->string('page_title')->default('')->comment('页面标题');
+            $table->string('category_name')->default('')->comment('分类名');
             $table->string('short_name')->default('')->comment('短名');
             $table->string('long_name')->default('')->comment('长名');
             $table->integer('num_children')->unsigned()->default(0)->comment('子分类数量');
