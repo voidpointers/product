@@ -16,6 +16,7 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->bigInteger('category_id')->unsigned()->default(0)->comment('分类ID');
+            $table->bigInteger('parent_id')->unsigned()->default(0)->comment('父类ID');
             $table->string('name')->default('')->comment('分类名');
             $table->string('meta_title')->default('')->comment('meta标题');
             $table->string('meta_keywords')->default('')->comment('meta关键字');
@@ -26,7 +27,6 @@ class CreateCategoriesTable extends Migration
             $table->string('short_name')->default('')->comment('短名');
             $table->string('long_name')->default('')->comment('长名');
             $table->integer('num_children')->unsigned()->default(0)->comment('子分类数量');
-            $table->integer('parent_id')->unsigned()->default(0)->comment('父类ID');
             $table->unique('category_id', 'uk_category_id');
         });
 
