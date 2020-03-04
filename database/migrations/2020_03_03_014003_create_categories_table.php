@@ -15,8 +15,8 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->bigInteger('category_id')->unsigned()->default(0)->comment('分类ID');
-            $table->bigInteger('parent_id')->unsigned()->default(0)->comment('父类ID');
+            $table->integer('category_id')->unsigned()->default(0)->comment('分类ID');
+            $table->integer('parent_id')->unsigned()->default(0)->comment('父类ID');
             $table->string('name')->default('')->comment('分类名');
             $table->string('meta_title')->default('')->comment('meta标题');
             $table->string('meta_keywords')->default('')->comment('meta关键字');
