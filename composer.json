@@ -30,7 +30,10 @@
             "Product\\": "app/Product",
             "Api\\": "app/Api",
             "Etsy\\": "app/Etsy"
-        }
+        },
+        "files": [
+            "bootrap/helper.php"
+        ]
     },
     "autoload-dev": {
         "classmap": [
