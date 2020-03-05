@@ -24,7 +24,6 @@ class Listing extends Model
         'title',
         'price',
         'quantity',
-        'description',
         'sku',
         'tags',
         'url',

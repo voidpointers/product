@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Product\Entities\Category;
 use Product\Entities\Listing;
 use Product\Entities\Image;
+use Product\Entities\Property;
 
 class ListingRequest
 {
@@ -27,6 +28,7 @@ class ListingRequest
             $data = $body['results'];
             (new Listing)->store($shop_id, $data);
             (new Image)->store($shop_id, $data);
+            (new Property)->store($data);
 
             echo "当前处理页数: " . $page . PHP_EOL;
             // 最后一页为null，退出循环

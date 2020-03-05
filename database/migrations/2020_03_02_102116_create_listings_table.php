@@ -27,7 +27,6 @@ class CreateListingsTable extends Migration
             $table->string('image')->default('')->comment('商品主图');
             $table->json('sku')->comment('SKU');
             $table->json('tags')->comment('标签，json数组');
-            $table->text('description')->comment('商品描述');
             $table->string('url')->default('')->comment('URL');
             $table->mediumInteger('views')->unsigned()->default(0)->comment('浏览量');
             $table->mediumInteger('num_favorers')->unsigned()->default(0)->comment('喜欢数量');

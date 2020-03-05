@@ -7,8 +7,19 @@ use Product\Entities\Listing;
 
 class ListingTransformer extends TransformerAbstract
 {
+    protected $defaultIncludes = ['description'];
+
     public function transform(Listing $listing)
     {
         return $listing->attributesToArray();
+    }
+
+    public function includeDescription($listing)
+    {
+        return $this->collection(
+            $listing->description ?? [],
+            new ListingPropertiesTransformer(),
+            'include'
+        );
     }
 }

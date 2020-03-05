@@ -25,6 +25,7 @@ class ListingsController extends Controller
         $shop_id = $request->header('shop-id');
 
         $data = Listing::where(['shop_id' => $shop_id])
+        ->with(['description'])
         ->orderBy('id', 'desc')
         ->paginate($request->get('limit', 30));
 
@@ -48,7 +49,7 @@ class ListingsController extends Controller
 
         $data = Listing::where(['shop_id' => $shop_id])
         ->whereIn('listing_id', explode(',', $listing_ids))
-        ->with(['images'])
+//        ->with(['images'])
         ->get();
 
         return $this->response->collection(
