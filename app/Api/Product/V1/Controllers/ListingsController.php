@@ -49,7 +49,7 @@ class ListingsController extends Controller
 
         $data = Listing::where(['shop_id' => $shop_id])
         ->whereIn('listing_id', explode(',', $listing_ids))
-//        ->with(['images'])
+        ->with(['images', 'property'])
         ->get();
 
         return $this->response->collection(
