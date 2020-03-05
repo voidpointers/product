@@ -25,7 +25,7 @@ class DetailTransformer extends TransformerAbstract
 
     public function includeProperty($listing)
     {
-        return $this->collection(
+        return $this->item(
             $listing->property ?? [],
             new PropertiesTransformer,
             'include'
