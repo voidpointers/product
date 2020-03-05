@@ -5,7 +5,7 @@ namespace Api\Product\V1\Transforms;
 use League\Fractal\TransformerAbstract;
 use Product\Entities\Listing;
 
-class ListingDetailTransformer extends TransformerAbstract
+class DetailTransformer extends TransformerAbstract
 {
     protected $defaultIncludes = ['images', 'property'];
 

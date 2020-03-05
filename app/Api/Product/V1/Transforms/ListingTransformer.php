@@ -18,7 +18,7 @@ class ListingTransformer extends TransformerAbstract
     {
         return $this->collection(
             $listing->description ?? [],
-            new ListingPropertiesTransformer(),
+            new PropertiesTransformer(),
             'include'
         );
     }

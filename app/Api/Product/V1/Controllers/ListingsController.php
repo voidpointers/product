@@ -3,7 +3,7 @@
 namespace Api\Product\V1\Controllers;
 
 use Api\Product\V1\Transforms\CategoryTransformer;
-use Api\Product\V1\Transforms\ListingDetailTransformer;
+use Api\Product\V1\Transforms\DetailTransformer;
 use Api\Product\V1\Transforms\ListingTransformer;
 use App\Controller;
 use Dingo\Api\Http\Request;
@@ -54,7 +54,7 @@ class ListingsController extends Controller
 
         return $this->response->collection(
             $data,
-            ListingDetailTransformer::class
+            DetailTransformer::class
         );
     }
 
