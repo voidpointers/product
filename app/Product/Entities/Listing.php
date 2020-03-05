@@ -44,7 +44,7 @@ class Listing extends Model
 
     public function property()
     {
-        return $this->hasMany(Property::class, 'listing_id', 'listing_id');
+        return $this->hasOne(Property::class, 'listing_id', 'listing_id');
     }
 
     public function store($shop_id, $params)
