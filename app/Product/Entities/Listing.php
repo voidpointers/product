@@ -19,9 +19,12 @@ class Listing extends Model
         'shop_id',
         'user_id',
         'category_id',
+        'image',
+        'image_id',
         'title',
         'price',
         'quantity',
+        'description',
         'sku',
         'tags',
         'url',
@@ -47,15 +50,14 @@ class Listing extends Model
             $param['shop_id'] = $shop_id;
             $param['sku'] = json_encode($param['sku']);
 
-            $data = [
-                'image_id' => $param['Images'][0]['listing_image_id'],
-                'image' => $param['Images'][0]['url_fullxfull'],
-                'create_time' => time(),
-                'update_time' => time(),
-            ];
             foreach ($this->fillable as $fillable) {
                 $data[$fillable] = $param[$fillable] ?? '';
             }
+            $data['image_id'] = $param['Images'][0]['listing_image_id'];
+            $data['image'] = $param['Images'][0]['url_fullxfull'];
+            $data['create_time'] = time();
+            $data['update_time'] = time();
+
             Listing::updateOrCreate(['listing_id' => $param['listing_id']], $data);
         }
 
