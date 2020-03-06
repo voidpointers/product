@@ -84,7 +84,7 @@ class Listing extends Model
                 $data['image_id'] = $images[0]['listing_image_id'];
                 $data['image'] = $images[0]['url_fullxfull'];
             }
-            if (array_key_exists('tags', $data)) {
+            if (array_key_exists('tags', $param)) {
                 $data['tags'] = json_encode($param['tags']);
             }
         }
