@@ -15,6 +15,7 @@ class CreateListingImagesTable extends Migration
     public function up()
     {
         Schema::create('listing_images', function (Blueprint $table) {
+            $table->increments('id');
             $table->bigInteger('listing_id')->unsigned()->default(0)->comment('产品ID');
             $table->bigInteger('image_id')->unsigned()->default(0)->comment('图片ID');
             $table->string('image')->default('')->comment('产品图片');
