@@ -80,8 +80,8 @@ class Listing extends Model
             if (is_array($param)) {
                 $param = json_encode($param);
             }
-            if ($images = $param['Images'] ?? []) {
-                $data['image'] = $images[0]['url_fullxfull'];
+            if (array_key_exists('Images', $param)) {
+                $data['image'] = $param['Images'][0]['url_fullxfull'];
             }
             if (in_array($key, $this->fillable)) {
                 $data[$key] = $param;
