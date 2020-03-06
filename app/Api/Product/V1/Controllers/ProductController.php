@@ -2,39 +2,66 @@
 
 namespace Api\Product\V1\Controllers;
 
-use Api\Product\V1\Transforms\CategoryTransformer;
-use Api\Product\V1\Transforms\DetailTransformer;
-use Api\Product\V1\Transforms\ListingTransformer;
 use App\Controller;
 use Dingo\Api\Http\Request;
-use Etsy\Requests\ListingRequest;
-use Product\Entities\Category;
 use Product\Entities\Listing;
+use Product\Entities\Property;
 
 class ProductController extends Controller
 {
-    protected $listingRequest;
-    
-    public function index(Request $request)
-    {
-        $shop_id = $request->header('shop-id');
-
-        $data = Listing::where(['shop_id' => $shop_id])
-        ->orderBy('id', 'desc')
-        ->paginate($request->get('limit', 30));
-
-        return $this->response->paginator(
-            $data,
-            ListingTransformer::class
-        );
-    }
-
     public function update_title(Request $request)
     {
-        $listing_id = $request->input('listing_id', 0);echo 33;exit;
-        $title = $request->input('title', '');var_dump($title);exit;
+        $listing_id = $request->input('listing_id', 0);
+        $title = $request->input('title', '');
 
-        $result = Listing::where(['listing_id' => $listing_id])
-        ->update(['title' => $title]);var_dump($result);exit;
+        $res = Listing::where(['listing_id' => $listing_id])
+        ->update(['title' => $title]);
+        $result['code'] = $res == 1 ? 200 : 400;
+        $result['data'] = [];
+        $result['msg'] = $res == 1 ? '操作成功' : '操作失败';
+
+        return response()->json($result);
+    }
+
+    public function update_desc(Request $request)
+    {
+        $listing_id = $request->input('listing_id', 0);
+        $description = $request->input('description', '');
+
+        $res = Property::where(['listing_id' => $listing_id])
+            ->update(['description' => $description]);
+        $result['code'] = $res == 1 ? 200 : 400;
+        $result['data'] = [];
+        $result['msg'] = $res == 1 ? '操作成功' : '操作失败';
+
+        return response()->json($result);
+    }
+
+    public function update_tags(Request $request)
+    {
+        $listing_id = $request->input('listing_id', 0);
+        $tags = $request->input('tags', '');
+
+        $res = Listing::where(['listing_id' => $listing_id])
+            ->update(['description' => $tags]);
+        $result['code'] = $res == 1 ? 200 : 400;
+        $result['data'] = [];
+        $result['msg'] = $res == 1 ? '操作成功' : '操作失败';
+
+        return response()->json($result);
+    }
+
+    public function update_materials(Request $request)
+    {
+        $listing_id = $request->input('listing_id', 0);
+        $materials = $request->input('materials', '');
+
+        $res = Listing::where(['listing_id' => $listing_id])
+            ->update(['materials' => $materials]);
+        $result['code'] = $res == 1 ? 200 : 400;
+        $result['data'] = [];
+        $result['msg'] = $res == 1 ? '操作成功' : '操作失败';
+
+        return response()->json($result);
     }
 }

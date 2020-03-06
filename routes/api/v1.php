@@ -12,6 +12,10 @@ $api->version('v1', [
         $api->get('listings/pull', 'ListingsController@pull');
         $api->get('listings/detail', 'ListingsController@detail');
         $api->get('listings/category', 'ListingsController@category');
+
+        $api->get('product/update_title', 'ProductController@update_title');
+        $api->get('product/update_desc', 'ProductController@update_desc');
+        $api->get('product/update_tags', 'ProductController@update_tags');
         // $api->resource('listings', 'ListingsController');
     });
 });
