@@ -18,7 +18,7 @@ class Image extends Model
      */
     const UPDATED_AT = null;
 
-    protected $fillable = ['listing_id', 'url', 'image_id', 'order'];
+    protected $fillable = ['listing_id', 'url', 'image_id', 'sort'];
 
     public function store($params)
     {
@@ -34,7 +34,7 @@ class Image extends Model
                 // 获取图片位置
                 $groups = array_map(function ($item) use ($param) {
                     if ($param['listing_id'] == $item['listing_id']) {
-                        return [$item['order'] => $item['id']];
+                        return [$item['sort'] => $item['id']];
                     }
                 }, $listings);
                 $data[] = $this->filled($param['Images'], $groups);
