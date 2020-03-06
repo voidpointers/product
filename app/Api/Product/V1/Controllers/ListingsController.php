@@ -81,7 +81,7 @@ class ListingsController extends Controller
     public function update(Request $request)
     {
         $shop_id = $request->header('shop-id');
-        $params = $request->json();
+        $params = $request->json()->all();
 
         foreach ($params as $param) {
             if (1 > $param['listing_id'] ?? 0) {
