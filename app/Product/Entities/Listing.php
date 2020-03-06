@@ -77,15 +77,14 @@ class Listing extends Model
             'update_time' => time()
         ];
         foreach ($params as $key => $param) {
-            if (in_array($key, $this->fillable)) {
-                $data[$key] = $param;
+            if (is_array($param)) {
+                $param = json_encode($param);
             }
             if ($images = $param['Images'] ?? []) {
-                $data['image_id'] = $images[0]['listing_image_id'];
                 $data['image'] = $images[0]['url_fullxfull'];
             }
-            if (is_array($param)) {
-                $data[$key] = json_encode($param);
+            if (in_array($key, $this->fillable)) {
+                $data[$key] = $param;
             }
         }
 
