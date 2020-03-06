@@ -78,7 +78,7 @@ class Listing extends Model
         foreach ($params as $key => $param) {
             $param['shop_id'] = $shop_id;
 
-            if (in_array($param['listing_id'], $listing_ids)) {
+            if ($listing_ids->search($param['listing_id'])) {
                 $update[] = $this->filled($param);
             } else {
                 $create[$key] = $this->filled($param);
