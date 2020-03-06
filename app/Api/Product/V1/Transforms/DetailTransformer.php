@@ -7,7 +7,7 @@ use Product\Entities\Listing;
 
 class DetailTransformer extends TransformerAbstract
 {
-    protected $defaultIncludes = ['images', 'property'];
+    protected $defaultIncludes = ['images'];
 
     public function transform(Listing $listing)
     {
@@ -19,15 +19,6 @@ class DetailTransformer extends TransformerAbstract
         return $this->collection(
             $listing->images ?? [],
             new ImageTransformer,
-            'include'
-        );
-    }
-
-    public function includeProperty($listing)
-    {
-        return $this->item(
-            $listing->property ?? [],
-            new PropertiesTransformer,
             'include'
         );
     }

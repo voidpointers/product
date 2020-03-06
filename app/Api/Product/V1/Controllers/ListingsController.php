@@ -39,6 +39,8 @@ class ListingsController extends Controller
         $shop_id = $request->header('shop-id');
 
         $data = $this->listingRequest->pull($shop_id);
+
+        return $this->response->array(['msg' => 'success']);
     }
 
     public function detail(Request $request)
@@ -88,6 +90,8 @@ class ListingsController extends Controller
                 continue;
             }
         }
-        return (new Listing)->saveBatch($shop_id, $params->all());
+        (new Listing)->saveBatch($shop_id, $params->all());
+
+        return $this->response->array(['msg' => 'success']);
     }
 }

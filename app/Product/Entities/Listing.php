@@ -47,27 +47,6 @@ class Listing extends Model
         return $this->hasOne(Property::class, 'listing_id', 'listing_id');
     }
 
-    public function store($shop_id, $params)
-    {
-        foreach ($params as $key => $param) {
-            $param['tags'] = json_encode($param['tags']);
-            $param['shop_id'] = $shop_id;
-            $param['sku'] = json_encode($param['sku']);
-
-            foreach ($this->fillable as $fillable) {
-                $data[$fillable] = $param[$fillable] ?? '';
-            }
-            $data['image_id'] = $param['Images'][0]['listing_image_id'];
-            $data['image'] = $param['Images'][0]['url_fullxfull'];
-            $data['create_time'] = time();
-            $data['update_time'] = time();
-
-            Listing::updateOrCreate(['listing_id' => $param['listing_id']], $data);
-        }
-
-        return true;
-    }
-
     public function saveBatch($shop_id, $params)
     {
         $update = $create = [];

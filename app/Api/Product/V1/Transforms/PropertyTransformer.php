@@ -4,7 +4,7 @@ namespace Api\Product\V1\Transforms;
 
 use League\Fractal\TransformerAbstract;
 
-class PropertiesTransformer extends TransformerAbstract
+class PropertyTransformer extends TransformerAbstract
 {
     public function transform($property)
     {
