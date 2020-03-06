@@ -81,6 +81,8 @@ class ListingsController extends Controller
     public function update(Request $request)
     {
         $params = $request->json();
-        dd($params);
+        foreach ($params as $param) {
+            dump($param);
+        }
     }
 }
