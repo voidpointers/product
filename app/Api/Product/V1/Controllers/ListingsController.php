@@ -83,12 +83,11 @@ class ListingsController extends Controller
         $shop_id = $request->header('shop-id');
         $params = $request->json();
 
-        $data = [];
         foreach ($params as $param) {
             if (1 > $param['listing_id'] ?? 0) {
                 continue;
             }
         }
-        return (new Listing)->saveBatch($shop_id, $data);
+        return (new Listing)->saveBatch($shop_id, $$params);
     }
 }
