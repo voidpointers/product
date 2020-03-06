@@ -52,7 +52,6 @@ class Image extends Model
                 $update[] = $val;
             }
         }
-        dd($create, $update);
 
         if ($create) {
             self::insert($create);
