@@ -71,7 +71,7 @@ class Image extends Model
                 'listing_id' => $param['listing_id'],
                 'image_id' => $param['listing_image_id'],
                 'url' => $param['url_fullxfull'],
-                'order' => $param['rank']
+                'sort' => $param['rank']
             ];
             if ($groups) {
                 if (in_array($param['rank'], $groups)) {
