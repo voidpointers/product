@@ -24,7 +24,7 @@ class ListingRequest
 
             // 存储到数据库
             $data = $body['results'];
-            (new Listing)->store($shop_id, $data);
+            // (new Listing)->store($shop_id, $data);
             (new Image())->store($data);
 
             echo "当前处理页数: " . $page . PHP_EOL;

@@ -31,7 +31,7 @@ class Image extends Model
 
         foreach ($params as $param) {
             // 判断该商品是否有图片
-            if (in_array($param['listing_id'], $listings->pluck('listing_id'))) {
+            if (in_array($param['listing_id'], $listings->pluck('listing_id')->all())) {
                 // 获取图片位置
                 $groups = array_map(function ($item) use ($param) {
                     if ($param['listing_id'] == $item['listing_id']) {
@@ -43,6 +43,7 @@ class Image extends Model
                 $data[] = $this->filled($param['Images']);
             }
         }
+        dd($data);
 
         if ($data['create']) {
             self::insert($data['create']);
