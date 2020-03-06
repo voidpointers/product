@@ -45,13 +45,14 @@ class Image extends Model
 
         $create = $update = [];
         foreach ($data as $item) {
-            if ($item['create']) {
-                $create[] = $item['create'];
-            } else {
-                $update[] = $item['update'];
+            foreach ($item['create'] as $val) {
+                $create[] = $val;
+            }
+            foreach ($item['update'] as $val) {
+                $update[] = $val;
             }
         }
-        dd($create);
+        dd($create, $update);
 
         if ($create) {
             self::insert($create);
