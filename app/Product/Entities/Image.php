@@ -18,11 +18,7 @@ class Image extends Model
      */
     const UPDATED_AT = null;
 
-    protected $fillable = [
-        'listing_id',
-        'image_id',
-        'image',
-    ];
+    protected $fillable = ['listing_id', 'url', 'image_id'];
 
     public function store($shop_id, $params)
     {

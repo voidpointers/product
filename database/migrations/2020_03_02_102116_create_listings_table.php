@@ -15,7 +15,6 @@ class CreateListingsTable extends Migration
     public function up()
     {
         Schema::create('listings', function (Blueprint $table) {
-            $table->increments('id');
             $table->bigInteger('listing_id')->unsigned()->default(0)->comment('Etsy产品ID');
             $table->bigInteger('taxonomy_id')->unsigned()->default(0)->comment('分类ID');
             $table->bigInteger('shop_id')->unsigned()->default(0)->comment('店铺ID');

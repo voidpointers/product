@@ -42,11 +42,6 @@ class Listing extends Model
         return $this->hasMany(Image::class, 'listing_id', 'listing_id');
     }
 
-    public function property()
-    {
-        return $this->hasOne(Property::class, 'listing_id', 'listing_id');
-    }
-
     public function saveBatch($shop_id, $params)
     {
         $update = $create = [];

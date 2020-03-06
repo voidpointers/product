@@ -2,13 +2,11 @@
 
 namespace Api\Product\V1\Controllers;
 
-use Api\Product\V1\Transforms\CategoryTransformer;
 use Api\Product\V1\Transforms\DetailTransformer;
 use Api\Product\V1\Transforms\ListingTransformer;
 use App\Controller;
 use Dingo\Api\Http\Request;
 use Etsy\Requests\ListingRequest;
-use Product\Entities\Category;
 use Product\Entities\Listing;
 
 class ListingsController extends Controller
@@ -50,33 +48,12 @@ class ListingsController extends Controller
 
         $data = Listing::where(['shop_id' => $shop_id])
         ->whereIn('listing_id', explode(',', $listing_ids))
-        ->with(['images', 'property'])
+        ->with(['images'])
         ->get();
 
         return $this->response->collection(
             $data,
             DetailTransformer::class
-        );
-    }
-
-    public function category(Request $request)
-    {
-        $parent_id = $request->input('parent_id');
-
-        $data = Category::where(['parent_id' => $parent_id])
-            ->orderBy('category_id', 'desc')
-            ->paginate($request->get('limit', 30));
-        if ($data->total() == 0) {
-            set_time_limit(0);
-            $this->listingRequest->get_category($parent_id);
-            $data = Category::where(['parent_id' => $parent_id])
-                ->orderBy('category_id', 'desc')
-                ->paginate($request->get('limit', 30));
-        }
-
-        return $this->response->paginator(
-            $data,
-            CategoryTransformer::class
         );
     }
 
