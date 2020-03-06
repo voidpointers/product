@@ -56,8 +56,8 @@ class Image extends Model
         if ($create) {
             self::insert($create);
         } 
-        if ($data['update']) {
-            self::updateBatch($data['update']);
+        if ($update) {
+            self::updateBatch($update);
         }
         return true;
     }
