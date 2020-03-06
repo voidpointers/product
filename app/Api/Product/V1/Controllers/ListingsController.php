@@ -77,4 +77,10 @@ class ListingsController extends Controller
             CategoryTransformer::class
         );
     }
+
+    public function update(Request $request)
+    {
+        $params = $request->json();
+        dd($params);
+    }
 }
