@@ -72,7 +72,9 @@ class Listing extends Model
     {
         $update = $create = [];
 
-        $listing_ids = self::whereIn('listing_id', array_column($params, 'listing_id'))->get()->keyBy('listing_id');
+        $listing_ids = self::whereIn('listing_id', array_column($params, 'listing_id'))
+        ->get('listing_id');
+        dd($listing_ids);
 
         foreach ($params as $key => $param) {
             $param['tags'] = json_encode($param['tags']);
