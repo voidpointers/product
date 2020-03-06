@@ -3,7 +3,7 @@
 namespace Etsy\Requests;
 
 use GuzzleHttp\Client;
-use Product\Entities\Category;
+use Product\Entities\Image;
 use Product\Entities\Listing;
 
 class ListingRequest
@@ -22,9 +22,10 @@ class ListingRequest
             ]);
             $body = json_decode($response->getBody()->getContents(), true);
 
-            // 存储数据到MySQL
+            // 存储到数据库
             $data = $body['results'];
-            (new Listing)->saveBatch($shop_id, $data);
+            (new Listing)->store($shop_id, $data);
+            (new Image())->store($data);
 
             echo "当前处理页数: " . $page . PHP_EOL;
             // 最后一页为null，退出循环

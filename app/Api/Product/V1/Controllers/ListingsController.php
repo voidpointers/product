@@ -67,7 +67,7 @@ class ListingsController extends Controller
                 continue;
             }
         }
-        (new Listing)->saveBatch($shop_id, $params->all());
+        (new Listing)->store($shop_id, $params->all());
 
         return $this->response->array(['msg' => 'success']);
     }

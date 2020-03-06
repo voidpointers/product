@@ -15,6 +15,7 @@ class CreateListingsTable extends Migration
     public function up()
     {
         Schema::create('listings', function (Blueprint $table) {
+            $table->increments('id');
             $table->bigInteger('listing_id')->unsigned()->default(0)->comment('Etsy产品ID');
             $table->bigInteger('taxonomy_id')->unsigned()->default(0)->comment('分类ID');
             $table->bigInteger('shop_id')->unsigned()->default(0)->comment('店铺ID');
@@ -40,7 +41,7 @@ class CreateListingsTable extends Migration
             $table->unique('listing_id', 'uk_listing_id');
             $table->index('shop_id', 'idx_shop_id');
             $table->index('user_id', 'idx_user_id');
-            $table->index('category_id', 'idx_category_id');
+            $table->index('taxonomy_id', 'idx_taxonomy_id');
         });
 
         DB::statement("ALTER TABLE `listings` comment '商品主表'"); // 表注释

@@ -42,7 +42,7 @@ class Listing extends Model
         return $this->hasMany(Image::class, 'listing_id', 'listing_id');
     }
 
-    public function saveBatch($shop_id, $params)
+    public function store($shop_id, $params)
     {
         $update = $create = [];
 
