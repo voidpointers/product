@@ -89,6 +89,6 @@ class ListingsController extends Controller
                 continue;
             }
         }
-        return Listing::saveBatch($shop_id, $data);
+        return (new Listing)->saveBatch($shop_id, $data);
     }
 }
