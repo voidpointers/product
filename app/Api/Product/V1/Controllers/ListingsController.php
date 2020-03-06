@@ -81,13 +81,13 @@ class ListingsController extends Controller
     public function update(Request $request)
     {
         $shop_id = $request->header('shop-id');
-        $params = $request->json()->all();
+        $params = $request->json();
 
         foreach ($params as $param) {
             if (1 > $param['listing_id'] ?? 0) {
                 continue;
             }
         }
-        return (new Listing)->saveBatch($shop_id, $$params);
+        return (new Listing)->saveBatch($shop_id, $params->all());
     }
 }
