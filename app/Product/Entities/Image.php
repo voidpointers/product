@@ -65,7 +65,8 @@ class Image extends Model
 
     protected function filled($params, $groups = [])
     {
-        $data = [];
+        $data = ['create' => [], 'update' => []];
+
         foreach ($params as $key => $param) {
             $temp = [
                 'listing_id' => $param['listing_id'],
