@@ -32,7 +32,7 @@
             "Etsy\\": "app/Etsy"
         },
         "files": [
-            "bootrap/helper.php"
+            "bootrap/helpers.php"
         ]
     },
     "autoload-dev": {
