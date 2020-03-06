@@ -28,7 +28,6 @@ class Image extends Model
         ->get();
 
         $data = [];
-
         foreach ($params as $param) {
             // 判断该商品是否有图片
             if (in_array($param['listing_id'], $listings->pluck('listing_id')->all())) {
@@ -43,10 +42,19 @@ class Image extends Model
                 $data[] = $this->filled($param['Images']);
             }
         }
-        dd($data);
 
-        if ($data['create']) {
-            self::insert($data['create']);
+        $create = $update = [];
+        foreach ($data as $item) {
+            if ($item['create']) {
+                $create[] = $item['create'];
+            } else {
+                $update[] = $item['update'];
+            }
+        }
+        dd($create);
+
+        if ($create) {
+            self::insert($create);
         } 
         if ($data['update']) {
             self::updateBatch($data['update']);
