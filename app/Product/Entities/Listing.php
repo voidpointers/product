@@ -76,9 +76,7 @@ class Listing extends Model
         ->pluck('listing_id');
 
         foreach ($params as $key => $param) {
-            $param['tags'] = json_encode($param['tags']);
             $param['shop_id'] = $shop_id;
-            $param['sku'] = json_encode($param['sku']);
 
             if (in_array($param['listing_id'], $listing_ids)) {
                 $update[] = $this->filled($param);
@@ -110,6 +108,9 @@ class Listing extends Model
             if ($images = $param['Images'] ?? []) {
                 $data['image_id'] = $images[0]['listing_image_id'];
                 $data['image'] = $images[0]['url_fullxfull'];
+            }
+            if (array_key_exists('tags', $data)) {
+                $data['tags'] = json_encode($param['tags']);
             }
         }
 
