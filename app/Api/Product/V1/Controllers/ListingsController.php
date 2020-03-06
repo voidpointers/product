@@ -78,11 +78,16 @@ class ListingsController extends Controller
         );
     }
 
-    public function update(Request $request)
+    public function update($shop_id, Request $request)
     {
         $params = $request->json();
+
+        $data = [];
         foreach ($params as $param) {
-            dump($param);
+            if (1 > $param['listing_id'] ?? 0) {
+                continue;
+            }
         }
+        return Listing::saveBatch($shop_id, $data);
     }
 }

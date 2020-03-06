@@ -68,13 +68,13 @@ class Listing extends Model
         return true;
     }
 
-    public function storeBatch($shop_id, $params)
+    public function saveBatch($shop_id, $params)
     {
         $update = $create = [];
 
         $listing_ids = self::whereIn('listing_id', array_column($params, 'listing_id'))->get()->keyBy('listing_id');
 
-        foreach ($params as $param) {
+        foreach ($params as $key => $param) {
             $param['tags'] = json_encode($param['tags']);
             $param['shop_id'] = $shop_id;
             $param['sku'] = json_encode($param['sku']);
@@ -82,13 +82,14 @@ class Listing extends Model
             if (in_array($param['listing_id'], $listing_ids)) {
                 $update[] = $this->filled($param);
             } else {
-                $create[] = $this->filled($param);
+                $create[$key] = $this->filled($param);
+                $create[$key]['create_time'] = time();
             }
         }
 
         // 如果存在则更新
         if ($update) {
-            $this->updateBatch($update, 'listing_id', 'listing_id');
+            $res = $this->updateBatch($update, 'listing_id', 'listing_id');
         }
         if ($create) {
             $res = self::insert($create);
@@ -98,15 +99,19 @@ class Listing extends Model
 
     protected function filled($params)
     {
-        $data[$params['listing_id']] = [
-            'image_id' => $params['MainImage']['listing_image_id'],
-            'image' => $params['MainImage']['url_fullxfull'],
-            'create_time' => time(),
-            'update_time' => time(),
+        $data = [
+            'update_time' => time()
         ];
-        foreach ($this->fillable as $fillable) {
-            $data[$params['listing_id']][$fillable] = $params[$fillable] ?? '';
+        foreach ($params as $key => $param) {
+            if (in_array($key, $this->fillable)) {
+                $data[$key] = $param;
+            }
+            if ($images = $param['Images'] ?? []) {
+                $data['image_id'] = $images[0]['listing_image_id'];
+                $data['image'] = $images[0]['url_fullxfull'];
+            }
         }
+
         return $data;
     }
 
