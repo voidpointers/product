@@ -78,8 +78,9 @@ class ListingsController extends Controller
         );
     }
 
-    public function update($shop_id, Request $request)
+    public function update(Request $request)
     {
+        $shop_id = $request->header('shop-id');
         $params = $request->json();
 
         $data = [];
