@@ -27,31 +27,20 @@ class Image extends Model
         $listings = self::whereIn('listing_id', array_keys($images))
         ->get();
 
-        $data = [];
-        foreach ($params as $param) {
-            // 判断该商品是否有图片
-            if (in_array($param['listing_id'], $listings->pluck('listing_id')->all())) {
-                // 获取图片位置
-                $groups = array_map(function ($item) use ($param) {
-                    if ($param['listing_id'] == $item['listing_id']) {
-                        return [$item['sort'] => $item['id']];
-                    }
-                }, $listings);
-                $data[] = $this->filled($param['Images'], $groups);
-            } else {
-                $data[] = $this->filled($param['Images']);
-            }
-        }
-
         $create = $update = [];
-        foreach ($data as $item) {
-            foreach ($item['create'] as $val) {
-                $create[] = $val;
-            }
-            foreach ($item['update'] as $val) {
-                $update[] = $val;
+
+        foreach ($params as $param) {
+            $groups = $listings->where('listing_id', $param['listing_id']);
+            foreach ($param['Images'] as $image) {
+                // 判断当前位置是否存在图片
+                if (in_array($groups->pluck('sort')->all(), $param['rank'])) {
+                    $update[] = $this->filled($param);
+                } else {
+                    $create[] = $this->filled($param);
+                }
             }
         }
+        dd($create);
 
         if ($create) {
             self::insert($create);
@@ -62,28 +51,13 @@ class Image extends Model
         return true;
     }
 
-    protected function filled($params, $groups = [])
+    protected function filled($params)
     {
-        $data = ['create' => [], 'update' => []];
-
-        foreach ($params as $key => $param) {
-            $temp = [
-                'listing_id' => $param['listing_id'],
-                'image_id' => $param['listing_image_id'],
-                'url' => $param['url_fullxfull'],
-                'sort' => $param['rank']
-            ];
-            if ($groups) {
-                if (in_array($param['rank'], $groups)) {
-                    $data['update'][$key] = $temp;
-                    $data['update'][$key]['id'] = $groups[$param['rank']];
-                } else {
-                    $data['create'][] = $temp;
-                }
-            } else {
-                $data['create'][] = $temp;
-            }
-        }
-        return $data;
+        return [
+            'listing_id' => $params['listing_id'],
+            'image_id' => $params['listing_image_id'],
+            'url' => $params['url_fullxfull'],
+            'sort' => $params['rank']
+        ];
     }
 }
