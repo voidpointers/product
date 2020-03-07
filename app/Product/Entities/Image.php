@@ -31,7 +31,7 @@ class Image extends Model
             $groups = $listings->where('listing_id', $param['listing_id']);
             foreach ($param['Images'] as $image) {
                 // 判断当前位置是否存在图片
-                if (in_array($groups->pluck('sort')->all(), $image['rank'])) {
+                if (in_array($image['rank'], $groups->pluck('sort')->all())) {
                     $update[] = $this->filled($image);
                 } else {
                     $create[] = $this->filled($image);
