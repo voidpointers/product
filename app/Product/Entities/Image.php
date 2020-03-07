@@ -29,10 +29,13 @@ class Image extends Model
 
         foreach ($params as $param) {
             $groups = $listings->where('listing_id', $param['listing_id']);
-            foreach ($param['Images'] as $image) {
+            foreach ($param['Images'] as $key => $image) {
                 // 判断当前位置是否存在图片
-                if (in_array($image['rank'], $groups->pluck('sort')->all())) {
-                    $update[] = $this->filled($image);
+                $sorts = $groups->pluck('id', 'sort')->all();
+
+                if (in_array($image['rank'], $sorts)) {
+                    $update[$key] = $this->filled($image);
+                    $update[$key]['id'] = $sorts[$image['rank']];
                 } else {
                     $create[] = $this->filled($image);
                 }
