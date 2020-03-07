@@ -80,7 +80,10 @@ class Listing extends Model
             if ('Images' == $key) {
                 $data['image'] = $param[0]['url_fullxfull'];
             }
-            if (is_array($param)) {
+            if (is_bool($param)) { // bool类型转换为int类型
+                $param = (int) $param;
+            }
+            if (is_array($param)) { // 数组编码
                 $param = json_encode($param);
             }
             if (in_array($key, $this->fillable)) {
