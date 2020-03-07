@@ -33,9 +33,9 @@ class Image extends Model
                 // 判断当前位置是否存在图片
                 $sorts = $groups->pluck('id', 'sort')->all();
 
-                if (in_array($image['rank'], $sorts)) {
+                if (($cur = $sorts[$image['rank']] ?? false)) {
                     $update[$key] = $this->filled($image);
-                    $update[$key]['id'] = $sorts[$image['rank']];
+                    $update[$key]['id'] = $cur;
                 } else {
                     $create[] = $this->filled($image);
                 }
