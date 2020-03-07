@@ -22,9 +22,7 @@ class Image extends Model
 
     public function store($params)
     {
-        $images = array_column($params, 'image_id', 'listing_id');
-
-        $listings = self::whereIn('listing_id', array_keys($images))
+        $listings = self::whereIn('listing_id', array_column($params, 'listing_id'))
         ->get();
 
         $create = $update = [];
@@ -33,14 +31,13 @@ class Image extends Model
             $groups = $listings->where('listing_id', $param['listing_id']);
             foreach ($param['Images'] as $image) {
                 // 判断当前位置是否存在图片
-                if (in_array($groups->pluck('sort')->all(), $param['rank'])) {
-                    $update[] = $this->filled($param);
+                if (in_array($groups->pluck('sort')->all(), $image['rank'])) {
+                    $update[] = $this->filled($image);
                 } else {
-                    $create[] = $this->filled($param);
+                    $create[] = $this->filled($image);
                 }
             }
         }
-        dd($create);
 
         if ($create) {
             self::insert($create);
