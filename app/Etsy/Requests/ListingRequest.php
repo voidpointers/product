@@ -10,6 +10,8 @@ class ListingRequest
 {
     public function pull($shop_id)
     {
+        set_time_limit(0);
+
         $url = env('ETSY_URL') . "/listings/{$shop_id}";
 
         $client = new Client();
@@ -30,6 +32,7 @@ class ListingRequest
             echo "当前处理页数: " . $page . PHP_EOL;
             // 最后一页为null，退出循环
             $page = $body['pagination']['next_page'];
+            usleep(100);
         }
         return true;
     }
