@@ -33,7 +33,7 @@ class ImagesController extends Controller
             if (1 == $param['sort'] ?? 1) {
                 $data[] = [
                     'listing_id' => $param['listing_id'],
-                    'image' => $param['image'],
+                    'image' => $param['url'],
                 ];
             }
         }
