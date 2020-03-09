@@ -18,7 +18,7 @@ class Image extends Model
      */
     const UPDATED_AT = null;
 
-    public $fillable = ['listing_id', 'url', 'image_id', 'sort'];
+    protected $fillable = ['listing_id', 'url', 'image_id', 'sort'];
 
     public function store($params)
     {
