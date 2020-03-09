@@ -26,8 +26,12 @@ class ImagesController extends Controller
             if (1 > $param['id'] ?? 0) {
                 continue;
             }
+            if (array_diff(array_keys($param), $this->fillable)) {
+                return $this->response->error('参数错误', 500);
+            }
         }
-        (new Image())->store($shop_id, $params->all());
+
+        (new Image())->updateById($params->all());
 
         return $this->response->array(['msg' => 'success']);
     }

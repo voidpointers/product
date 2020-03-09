@@ -51,6 +51,15 @@ class Image extends Model
         return true;
     }
 
+    public function updateById($params)
+    {
+        
+        if (!$params) {
+            return false;
+        }
+        return self::updateBatch($params);
+    }
+
     protected function filled($params)
     {
         return [
