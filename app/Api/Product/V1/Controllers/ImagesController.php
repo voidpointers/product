@@ -34,21 +34,15 @@ class ImagesController extends Controller
             if (array_diff(array_keys($param), $this->fillable)) {
                 return $this->response->error('参数错误', 501);
             }
-            // 校验图片ID是否属于Lising
+            // 排序第一位需要更新主图
             if (array_key_exists('id', $param)) {
                 $image = $images[$param['id']] ?? [];
-                if (!$image) {
-                    return $this->response->error("{$param['id']} 图片ID不匹配", 500);
+                if (1 != $image->sort) {
+                    continue;
                 }
-                if ($param['listing_id'] != $image->listing_id) {
-                    return $this->response->error("{$param['id']} Lising ID错误", 501);
-                }
-            }
-            // 需要更新主图
-            if (1 == ($param['sort'] ?? 1)) {
                 $data[] = [
-                    'listing_id' => $param['listing_id'],
-                    'image' => $param['url'],
+                    'listing_id' => $image['listing_id'],
+                    'image' => $image['url'],
                 ];
             }
         }
