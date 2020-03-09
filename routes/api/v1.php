@@ -16,6 +16,6 @@ $api->version('v1', [
     $api->group([
         'namespace' => 'Api\Product\V1\Controllers',
     ], function ($api) {
-        $api->post('listings', 'ImagesController@update');
+        $api->post('images', 'ImagesController@update');
     });
 });
