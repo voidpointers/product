@@ -31,7 +31,10 @@ class ImagesController extends Controller
                 return $this->response->error('参数错误', 501);
             }
             if (1 == $param['sort'] ?? 1) {
-                $data[] = $param;
+                $data[] = [
+                    'listing_id' => $param['listing_id'],
+                    'image' => $param['image'],
+                ];
             }
         }
 
