@@ -57,9 +57,9 @@ class Image extends Model
 
         foreach ($params as $param) {
             if ($param['id']) {
-                $create[] = $param;
-            } else {
                 $update[] = $param;
+            } else {
+                $create[] = $param;
             }
         }
 
