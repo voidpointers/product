@@ -25,12 +25,27 @@ class ImagesController extends Controller
         $shop_id = $request->header('shop-id');
         $params = $request->json();
 
+        $images = Image::whereIn('id', array_column($params, 'id'))
+        ->get()
+        ->keyBy('id');
+
         $data = [];
         foreach ($params as $param) {
             if (array_diff(array_keys($param), $this->fillable)) {
                 return $this->response->error('参数错误', 501);
             }
-            if (1 == $param['sort'] ?? 1) {
+            // 校验图片ID是否属于Lising
+            if (array_key_exists('id', $param)) {
+                $image = $images[$param['id']] ?? [];
+                if (!$image) {
+                    return $this->response->error("{$param['id']} 图片ID不匹配", 500);
+                }
+                if ($param['listing_id'] != $image->listing_id) {
+                    return $this->response->error("{$param['id']} Lising ID错误", 501);
+                }
+            }
+            // 需要更新主图
+            if (1 == ($param['sort'] ?? 1)) {
                 $data[] = [
                     'listing_id' => $param['listing_id'],
                     'image' => $param['url'],
