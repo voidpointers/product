@@ -23,7 +23,7 @@ class ImagesController extends Controller
     public function update(Request $request)
     {
         $shop_id = $request->header('shop-id');
-        $params = $request->json();
+        $params = $request->json()->all();
 
         $images = Image::whereIn('id', array_column($params, 'id'))
         ->get()
@@ -54,7 +54,7 @@ class ImagesController extends Controller
         }
 
         $model = new Image;
-        $model->saveById($params->all());
+        $model->saveById($params);
 
         if ($data) {
             Listing::updateBatch($data, 'listing_id', 'listing_id');
