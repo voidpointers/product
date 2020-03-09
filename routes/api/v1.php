@@ -13,4 +13,9 @@ $api->version('v1', [
         $api->get('listings/detail', 'ListingsController@detail');
         $api->post('listings', 'ListingsController@update');
     });
+    $api->group([
+        'namespace' => 'Api\Product\V1\Controllers',
+    ], function ($api) {
+        $api->post('listings', 'ImagesController@update');
+    });
 });
