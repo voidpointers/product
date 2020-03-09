@@ -5,6 +5,7 @@ namespace Api\Product\V1\Controllers;
 use App\Controller;
 use Dingo\Api\Http\Request;
 use Product\Entities\Image;
+use Product\Entities\Listing;
 
 class ImagesController extends Controller
 {
@@ -24,17 +25,22 @@ class ImagesController extends Controller
         $shop_id = $request->header('shop-id');
         $params = $request->json();
 
+        $data = [];
         foreach ($params as $param) {
-            if (1 > $param['id'] ?? 0) {
-                return $this->response->error('参数错误', 500);
-            }
             if (array_diff(array_keys($param), $this->fillable)) {
                 return $this->response->error('参数错误', 501);
+            }
+            if (1 == $param['sort'] ?? 1) {
+                $data[] = $param;
             }
         }
 
         $model = new Image;
-        $model->updateById($params->all());
+        $model->saveById($params->all());
+
+        if ($data) {
+            Listing::updateBatch($data, 'listing_id', 'listing_id');
+        }
 
         return $this->response->array(['msg' => 'success']);
     }

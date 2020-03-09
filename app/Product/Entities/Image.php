@@ -51,13 +51,25 @@ class Image extends Model
         return true;
     }
 
-    public function updateById($params)
+    public function saveById($params)
     {
-        
-        if (!$params) {
-            return false;
+        $create = $update = [];
+
+        foreach ($params as $param) {
+            if ($param['id']) {
+                $create[] = $param;
+            } else {
+                $update[] = $param;
+            }
         }
-        return self::updateBatch($params);
+
+        if ($create) {
+            self::insert($create);
+        } 
+        if ($update) {
+            self::updateBatch($update);
+        }
+        return true;
     }
 
     protected function filled($params)
