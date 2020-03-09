@@ -42,7 +42,7 @@ class ImagesController extends Controller
                 }
                 $data[] = [
                     'listing_id' => $image['listing_id'],
-                    'image' => $image['url'],
+                    'image' => $param['url'],
                 ];
             }
         }
