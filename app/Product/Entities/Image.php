@@ -93,10 +93,10 @@ class Image extends Model
         foreach ($params as $key => $param) {
             $image = $images[$param['listing_id']] ?? [];
             if ($image) {
-                $sort = array_column($image, 'id', 'sort');
-                if ($sort[$param['sort']] ?? []) {
+                $sort = $image->where('sort', $param['sort'])->first();
+                if ($sort) {
                     $update[$key] = $param;
-                    $update[$key]['id'] = current($sort);
+                    $update[$key]['id'] = $sort->id;
                 } else {
                     $create[] = $param;
                 }
