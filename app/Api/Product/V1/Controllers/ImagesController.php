@@ -9,8 +9,6 @@ use Product\Entities\Listing;
 
 class ImagesController extends Controller
 {
-    protected $fillable = ['id', 'listing_id', 'url', 'image_id', 'sort'];
-
     public function __construct()
     {
     }
@@ -25,30 +23,19 @@ class ImagesController extends Controller
         $shop_id = $request->header('shop-id');
         $params = $request->json()->all();
 
-        $images = Image::whereIn('id', array_column($params, 'id'))
-        ->get()
-        ->keyBy('id');
-
         $data = [];
         foreach ($params as $param) {
-            if (array_diff(array_keys($param), $this->fillable)) {
-                return $this->response->error('参数错误', 501);
-            }
-            // 排序第一位需要更新主图
-            if (array_key_exists('id', $param)) {
-                $image = $images[$param['id']] ?? [];
-                if (1 != $image->sort) {
-                    continue;
-                }
+            if (1 == ($param['sort'] ?? 1)) {
+                // 排序第一位需要更新主图
                 $data[] = [
-                    'listing_id' => $image['listing_id'],
+                    'listing_id' => $param['listing_id'],
+                    'sort' => $param['sort'],
                     'image' => $param['url'],
                 ];
             }
         }
 
-        $model = new Image;
-        $model->saveById($params);
+        (new Image)->saveBySort($params);
 
         if ($data) {
             Listing::updateBatch($data, 'listing_id', 'listing_id');

@@ -81,4 +81,37 @@ class Image extends Model
             'sort' => $params['rank']
         ];
     }
+
+    public function saveBySort($params)
+    {
+        $create = $update = [];
+
+        $images = self::whereIn('listing_id', array_column($params, 'listing_id'))
+        ->get()
+        ->keyBy('listing_id');
+
+        foreach ($params as $key => $param) {
+            $image = $images[$param['listing_id']] ?? [];
+            if ($image) {
+                $sort = array_column($image, 'id', 'sort');
+                if ($sort[$param['sort']] ?? []) {
+                    $update[$key] = $param;
+                    $update[$key]['id'] = current($sort);
+                } else {
+                    $create[] = $param;
+                }
+            } else {
+                $create[] = $param;
+            }
+        }
+        dd($create, $update);
+
+        if ($create) {
+            self::insert($create);
+        } 
+        if ($update) {
+            self::updateBatch($update);
+        }
+        return true;
+    }
 }
